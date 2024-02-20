@@ -11,32 +11,32 @@ import Blockheight from '@/components/blockheight'
 const TABS = ['1h', '4h', '6h', '12h', '1D']
 
 function groupData(data, interval) {
-	const groupedData = {}
-	const intervalMilliseconds = {
-		'10m': 10 * 60 * 1000,
-		'1h': 60 * 60 * 1000,
-		'4h': 60 * 60 * 1000 * 4,
-		'6h': 60 * 60 * 1000 * 6,
-		'12h': 60 * 60 * 1000 * 12,
-		'1D': 24 * 60 * 60 * 1000
-	}
+    const groupedData = {}
+    const intervalMilliseconds = {
+        '10m': 10 * 60 * 1000,
+        '1h': 60 * 60 * 1000,
+        '4h': 60 * 60 * 1000 * 4,
+        '6h': 60 * 60 * 1000 * 6,
+        '12h': 60 * 60 * 1000 * 12,
+        '1D': 24 * 60 * 60 * 1000
+    }
 
-	data.forEach((item) => {
-		const date = new Date(item.time * 1000)
-		// Round down the date to the nearest interval
-		const roundedDate = new Date(
-			Math.floor(date.getTime() / intervalMilliseconds[interval]) * intervalMilliseconds[interval]
-		)
+    data.forEach((item) => {
+        const date = new Date(item.time * 1000)
+        // Round down the date to the nearest interval
+        const roundedDate = new Date(
+            Math.floor(date.getTime() / intervalMilliseconds[interval]) * intervalMilliseconds[interval]
+        )
 
-		// Use the rounded date as a key for grouping
-		const key = roundedDate.toISOString()
-		if (!groupedData[key]) {
-			groupedData[key] = []
-		}
-		groupedData[key].push(item)
-	})
+        // Use the rounded date as a key for grouping
+        const key = roundedDate.toISOString()
+        if (!groupedData[key]) {
+            groupedData[key] = []
+        }
+        groupedData[key].push(item)
+    })
 
-	return groupedData
+    return groupedData
 }
 
 export default function Chart(props: {
